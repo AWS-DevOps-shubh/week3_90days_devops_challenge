@@ -27,3 +27,23 @@ echo "======********* Uesr Created successfuly *******========="
 }
 # call the function
 create_user
+
++++++++++++++++++++++++++ List User +++++++++++++++++++++++++++++++++++++++
+#!/bin/bash
+
+# Function to list all users with their UIDs
+list_users() {
+    echo "Username       UID"
+    echo "-------------------"
+    while IFS=: read -r username _ uid _; do
+        printf "%-15s %s\n" "$username" "$uid"
+    done < /etc/passwd
+}
+list_user
+
+# Check if the -l or --list option is passed
+if [[ $1 == "-l" || $1 == "--list" ]]; then
+    list_users
+else
+    echo "Usage: $0 -l or --list to list all users"
+fi
