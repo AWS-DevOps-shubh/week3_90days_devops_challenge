@@ -28,6 +28,36 @@ echo "======********* Uesr Created successfuly *******========="
 # call the function
 create_user
 
+
++++++++++++++++++++++++++++++ Deletion user ++++++++++++==++++++++++++++++
+#!/bin/bash
+
+# Function to delete a user if they exist
+delete_user_if_exists() {
+    local username=$1
+
+    # Check if the user exists
+    if id "$username" &>/dev/null; then
+        echo "User '$username' exists. Proceeding with deletion."
+        
+        # Delete the user
+        sudo userdel -r "$username"
+        
+        if [ $? -eq 0 ]; then
+            echo "User '$username' has been successfully deleted."
+        else
+            echo "Failed to delete user '$username'. Please check your permissions."
+        fi
+    else
+        echo "User '$username' does not exist."
+    fi
+}
+
+# Example usage
+# Replace 'exampleuser' with the username you want to delete
+delete_user_if_exists "$username"
+
+
 +++++++++++++++++++++++++ List User +++++++++++++++++++++++++++++++++++++++
 #!/bin/bash
 
